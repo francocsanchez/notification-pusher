@@ -8,15 +8,18 @@
                         <x-jet-label>
                             Asunto
                         </x-jet-label>
-                        <x-jet-input type="text" class="w-full" placeholder="Ingrese asunto..." name="subjet" />
+                        <x-jet-input type="text" class="w-full" placeholder="Ingrese asunto..." name="subjet"
+                            value="{{ old('subjet') }}" />
+                        <x-jet-input-error for="subjet" />
                     </div>
 
                     <div class="mb-4">
                         <x-jet-label>
                             Mensaje
                         </x-jet-label>
-                        <textarea name="" rows="6" class="form-control w-full"
+                        <textarea name="body" rows="6" class="form-control w-full" value="{{ old('body') }}"
                             placeholder="Escriba su mensaje..."></textarea>
+                        <x-jet-input-error for="body" />
                     </div>
 
                     <div class="mb-4">
@@ -25,12 +28,14 @@
                         </x-jet-label>
 
                         <select name="to_user_id" class="form-control w-full">
-                            <option value="" selected disabled>Seleccione un usuario</option>
+                            <option value="" {{ old('to_user_id') ? '' : 'selected' }} disabled>Seleccione un usuario</option>
 
                             @foreach ($users as $user)
-                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                <option {{ old('to_user_id') == $user->id ? 'selected' : '' }}
+                                    value="{{ $user->id }}">{{ $user->name }}</option>
                             @endforeach
                         </select>
+                        <x-jet-input-error for="to_user_id" />
                     </div>
 
                     <x-jet-button>
