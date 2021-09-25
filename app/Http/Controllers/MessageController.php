@@ -16,7 +16,7 @@ class MessageController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'subjet'    =>  'required|min:3',
+            'subject'    =>  'required|min:3',
             'body'      =>  'required|min:10',
             'to_user_id'    =>  'required|exists:users,id',
         ]);
@@ -27,6 +27,9 @@ class MessageController extends Controller
             'from_user_id'  =>  auth()->id(),
             'to_user_id'    =>  $request->to_user_id
         ]);
+
+        $request->session()->flash('flash.banner', 'Tu mensaje fue enviado correctamente');
+        $request->session()->flash('flash.bannerStyle', 'success');
 
         return redirect()->back();
     }
