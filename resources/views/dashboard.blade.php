@@ -8,9 +8,9 @@
                         <x-jet-label>
                             Asunto
                         </x-jet-label>
-                        <x-jet-input type="text" class="w-full" placeholder="Ingrese asunto..." name="subjet"
-                            value="{{ old('subjet') }}" />
-                        <x-jet-input-error for="subjet" />
+                        <x-jet-input type="text" class="w-full" placeholder="Ingrese asunto..." name="subject"
+                            value="{{ old('subject') }}" />
+                        <x-jet-input-error for="subject" />
                     </div>
 
                     <div class="mb-4">

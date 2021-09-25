@@ -20,5 +20,14 @@ class MessageController extends Controller
             'body'      =>  'required|min:10',
             'to_user_id'    =>  'required|exists:users,id',
         ]);
+
+        Message::create([
+            'subject' => $request->subject,
+            'body'  =>  $request->body,
+            'from_user_id'  =>  auth()->id(),
+            'to_user_id'    =>  $request->to_user_id
+        ]);
+
+        return redirect()->back();
     }
 }
