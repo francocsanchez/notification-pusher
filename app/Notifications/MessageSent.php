@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -31,7 +32,7 @@ class MessageSent extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['mail', 'database'];
     }
 
     /**
@@ -43,9 +44,9 @@ class MessageSent extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject('Tienes un nuevo mensaje')
-                    ->line('Tienes una nueva notificación.')
-                    ->action('Leer mensaje', route('message.show',$this->message->id));
+            ->subject('Tienes un nuevo mensaje')
+            ->line('Tienes una nueva notificación.')
+            ->action('Leer mensaje', route('message.show', $this->message->id));
     }
 
     /**
@@ -54,10 +55,11 @@ class MessageSent extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
-    public function toArray($notifiable)
+    public function toDatabase($notifiable)
     {
         return [
-            //
+            'url'   =>  route('message.show', $this->message->id),
+            'message'   =>  'Has recibido un mensaje de ' . User::find($this->message->from_user_id)->name
         ];
     }
 }
