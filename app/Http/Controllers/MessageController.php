@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MessageRequest;
 use App\Models\Message;
 use App\Models\User;
 use App\Notifications\MessageSent;
@@ -14,14 +15,8 @@ class MessageController extends Controller
         return view('message.show', compact('message'));
     }
 
-    public function store(Request $request)
+    public function store(MessageRequest $request)
     {
-        $request->validate([
-            'subject'    =>  'required|min:3',
-            'body'      =>  'required|min:10',
-            'to_user_id'    =>  'required|exists:users,id',
-        ]);
-
         $message = Message::create([
             'subject' => $request->subject,
             'body'  =>  $request->body,
