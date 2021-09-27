@@ -27,11 +27,14 @@
                 <div class=" divide-y-2">
                     @foreach ($notifications as $notification)
                         <!-- Team Settings -->
-                        <x-jet-dropdown-link class=" text-gray-700" href="{{ $notification->data['url'] }}">
+                        <x-jet-dropdown-link class="{{$notification->read_at ? 'text-gray-700' : 'text-indigo-700'}} " href="{{ $notification->data['url'] }}">
                             {{ $notification->data['message'] }}
                             <span class="text-xs font-bold">{{ $notification->created_at->diffForHumans() }}</span>
                         </x-jet-dropdown-link>
                     @endforeach
+                </div>
+                <div class=" text-right block px-4 py-2 text-xs text-gray-400">
+                    <a href="" class=" text-indigo-700">Ver todas las notificaciones</a> 
                 </div>
             </div>
         </x-slot>

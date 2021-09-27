@@ -17,7 +17,7 @@ class NotificationComponent extends Component
 
     public function notification()
     {
-        $this->notifications = auth()->user()->notifications;
+        $this->notifications = auth()->user()->notifications->take(6);
         $this->count = auth()->user()->unreadNotifications->count();
     }
 
